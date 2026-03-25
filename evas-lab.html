@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EVAS Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f0f2f7;
+      --bg2: #e8ebf3;
+      --text: #2d3a4a;
+      --muted: #6b7a8d;
+      --accent: #4a6080;
+      --accent2: #637fa0;
+      --border: #d0d8e4;
+      --white: #ffffff;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-weight: 300;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.4rem 4rem;
+      background: rgba(240, 242, 247, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
+    }
+    nav.scrolled { border-bottom-color: var(--border); }
+
+    .nav-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: 0.22em;
+      color: var(--accent);
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 400;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* SECTIONS COMMON */
+    section {
+      padding: 8rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 3rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      max-width: 3rem;
+      height: 1px;
+      background: var(--border);
+    }
+
+    h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      color: var(--text);
+    }
+
+    /* HERO */
+    #home {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 6rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding-left: 4rem;
+      padding-right: 4rem;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(3.5rem, 9vw, 7.5rem);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      line-height: 0.95;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp 0.9s ease forwards 0.1s;
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 480px;
+      font-weight: 300;
+      line-height: 1.8;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp 0.9s ease forwards 0.35s;
+      margin-bottom: 3.5rem;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      gap: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.55s;
+    }
+    .btn {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.85rem 2rem;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn:hover { background: var(--accent); color: var(--white); }
+    .btn.filled { background: var(--accent); color: var(--white); }
+    .btn.filled:hover { background: var(--accent2); border-color: var(--accent2); }
+
+    .hero-divider {
+      position: absolute;
+      bottom: 3rem;
+      left: 4rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--border);
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 0.8s;
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* SOBRE */
+    #sobre .sobre-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      margin-top: 3rem;
+      align-items: start;
+    }
+    .sobre-text p {
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+      font-size: 0.97rem;
+    }
+    .sobre-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    .stat {
+      border-top: 1px solid var(--border);
+      padding-top: 1.2rem;
+    }
+    .stat-number {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+
+    /* MEMBROS */
+    #membros { background: none; }
+    .members-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .member-card {
+      border-top: 1px solid var(--border);
+      padding-top: 1.2rem;
+      transition: opacity 0.2s;
+    }
+    .member-card:hover { opacity: 0.75; }
+    .member-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+    .member-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--text);
+    }
+    .member-role {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    /* PROJETOS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .project-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 2.2rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+      cursor: default;
+    }
+    .project-card:hover {
+      box-shadow: 0 8px 32px rgba(74, 96, 128, 0.1);
+      transform: translateY(-2px);
+    }
+    .project-tag {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 1rem;
+    }
+    .project-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--text);
+      margin-bottom: 0.8rem;
+    }
+    .project-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    /* PUBLICAÇÕES */
+    .pubs-list {
+      margin-top: 3rem;
+    }
+    .pub-item {
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+      display: grid;
+      grid-template-columns: 5rem 1fr auto;
+      gap: 2rem;
+      align-items: start;
+      transition: opacity 0.2s;
+    }
+    .pub-item:hover { opacity: 0.7; }
+    .pub-year {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      padding-top: 0.2rem;
+    }
+    .pub-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+    }
+    .pub-authors {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .pub-venue {
+      font-size: 0.75rem;
+      color: var(--accent2);
+      margin-top: 0.3rem;
+      font-style: italic;
+    }
+    .pub-link {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2px;
+      white-space: nowrap;
+      transition: border-color 0.2s;
+    }
+    .pub-link:hover { border-color: var(--accent); }
+
+    /* VAGAS */
+    #vagas {
+      background: var(--white);
+      max-width: 100%;
+      padding: 8rem 0;
+    }
+    #vagas .inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 4rem;
+    }
+    .vagas-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      margin-top: 3rem;
+    }
+    .vaga-item {
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .vaga-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+    .vaga-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .contact-info p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+    .contact-link {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 0.6rem;
+      transition: opacity 0.2s;
+    }
+    .contact-link:hover { opacity: 0.6; }
+
+    /* FOOTER */
+    footer {
+      padding: 2.5rem 4rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    footer .logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      font-size: 0.9rem;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+    footer .copy {
+      font-size: 0.75rem;
+      color: var(--border);
+      letter-spacing: 0.05em;
+    }
+
+    /* SCROLL ANIMATION */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; }
+      section, #home { padding: 5rem 1.5rem; }
+      #sobre .sobre-grid,
+      .projects-grid,
+      .vagas-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .pub-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      footer { padding: 2rem 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
+      #vagas .inner { padding: 0 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <a href="#home" class="nav-logo">EVAS Lab</a>
+    <ul class="nav-links">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#membros">Membros</a></li>
+      <li><a href="#projetos">Projetos</a></li>
+      <li><a href="#publicacoes">Publicações</a></li>
+      <li><a href="#vagas">Vagas</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="home" style="position:relative;">
+    <p class="hero-eyebrow">Laboratório de Sistemas, Algoritmos e Inteligência Artificial</p>
+    <h1 class="hero-title">EVAS<br>Lab</h1>
+    <p class="hero-sub">
+      Pesquisa de ponta em sistemas inteligentes, algoritmos e IA aplicada — construindo tecnologia que transforma a forma como o mundo resolve problemas complexos.
+    </p>
+    <div class="hero-cta">
+      <a href="#projetos" class="btn filled">Ver projetos</a>
+      <a href="#vagas" class="btn">Junte-se a nós</a>
+    </div>
+    <span class="hero-divider">UFCG · Campina Grande · Brasil</span>
+  </section>
+
+  <!-- SOBRE -->
+  <section id="sobre">
+    <div class="section-label reveal">Sobre o lab</div>
+    <div class="sobre-grid">
+      <div class="sobre-text reveal">
+        <h2>Pesquisa que<br>move o campo</h2>
+        <p style="margin-top:1.5rem;">
+          O EVAS Lab é um laboratório de pesquisa dedicado ao avanço de sistemas inteligentes, algoritmos eficientes e inteligência artificial aplicada a problemas reais.
+        </p>
+        <p>
+          Acreditamos que o progresso científico é coletivo. Publicamos abertamente, colaboramos amplamente e formamos pesquisadores que impactam a academia e a indústria.
+        </p>
+        <p>
+          Nossa pesquisa cobre desde fundamentos teóricos de algoritmos até aplicações práticas de aprendizado de máquina, com foco em soluções escaláveis e reprodutíveis.
+        </p>
+      </div>
+      <div class="sobre-stats reveal">
+        <div class="stat">
+          <div class="stat-number">12+</div>
+          <div class="stat-label">Membros ativos</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">30+</div>
+          <div class="stat-label">Publicações</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">8</div>
+          <div class="stat-label">Projetos em curso</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">5+</div>
+          <div class="stat-label">Anos de pesquisa</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEMBROS -->
+  <section id="membros">
+    <div class="section-label reveal">Equipe</div>
+    <h2 class="reveal">Membros</h2>
+    <div class="members-grid">
+
+      <div class="member-card reveal">
+        <div class="member-avatar">PO</div>
+        <div class="member-name">Prof. Orientador</div>
+        <div class="member-role">Professor · Pesquisador Principal</div>
+      </div>
+
+      <div class="member-card reveal">
+        <div class="member-avatar">A1</div>
+        <div class="member-name">Aluna Silva</div>
+        <div class="member-role">Doutoranda · IA & Aprendizado de Máquina</div>
+      </div>
+
+      <div class="member-card reveal">
+        <div class="member-avatar">A2</div>
+        <div class="member-name">Aluna Costa</div>
+        <div class="member-role">Mestranda · Algoritmos</div>
+      </div>
+
+      <div class="member-card reveal">
+        <div class="member-avatar">A3</div>
+        <div class="member-name">Aluna Ferreira</div>
+        <div class="member-role">Graduanda · Sistemas Inteligentes</div>
+      </div>
+
+      <div class="member-card reveal">
+        <div class="member-avatar">A4</div>
+        <div class="member-name">Aluna Oliveira</div>
+        <div class="member-role">Graduanda · IA Aplicada</div>
+      </div>
+
+      <div class="member-card reveal">
+        <div class="member-avatar">A5</div>
+        <div class="member-name">Aluna Santos</div>
+        <div class="member-role">Mestranda · Engenharia de Software</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJETOS -->
+  <section id="projetos">
+    <div class="section-label reveal">Produtos & Projetos</div>
+    <h2 class="reveal">O que construímos</h2>
+    <div class="projects-grid">
+
+      <div class="project-card reveal">
+        <div class="project-tag">Sistema · Web · IA</div>
+        <div class="project-title">Condo Platform</div>
+        <div class="project-desc">Plataforma inteligente para gestão condominial com arquitetura moderna e camadas bem definidas — Angular, NestJS e MySQL.</div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-tag">Educação · Gamificação</div>
+        <div class="project-title">Sistema de Quiz & Ranking</div>
+        <div class="project-desc">Plataforma de pontuação por quizzes de aula com login, ranking individual e por times. Construída pelas próprias alunas do lab.</div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-tag">Algoritmos · Otimização</div>
+        <div class="project-title">Projeto Algoritmos</div>
+        <div class="project-desc">Pesquisa em algoritmos de otimização combinatória aplicados a problemas de escalonamento e alocação de recursos.</div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-tag">Aprendizado de Máquina</div>
+        <div class="project-title">Projeto IA Aplicada</div>
+        <div class="project-desc">Modelos de aprendizado supervisionado e não supervisionado aplicados a conjuntos de dados reais em parceria com a indústria.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PUBLICAÇÕES -->
+  <section id="publicacoes">
+    <div class="section-label reveal">Produção científica</div>
+    <h2 class="reveal">Publicações</h2>
+    <div class="pubs-list">
+
+      <div class="pub-item reveal">
+        <div class="pub-year">2024</div>
+        <div>
+          <div class="pub-title">Título do artigo mais recente aqui</div>
+          <div class="pub-authors">Silva A., Costa B., Ferreira C.</div>
+          <div class="pub-venue">Conference on Artificial Intelligence (AAAI 2024)</div>
+        </div>
+        <a href="#" class="pub-link">PDF →</a>
+      </div>
+
+      <div class="pub-item reveal">
+        <div class="pub-year">2023</div>
+        <div>
+          <div class="pub-title">Título do segundo artigo</div>
+          <div class="pub-authors">Oliveira D., Santos E.</div>
+          <div class="pub-venue">Brazilian Symposium on Databases (SBBD 2023)</div>
+        </div>
+        <a href="#" class="pub-link">PDF →</a>
+      </div>
+
+      <div class="pub-item reveal">
+        <div class="pub-year">2023</div>
+        <div>
+          <div class="pub-title">Título do terceiro artigo</div>
+          <div class="pub-authors">Silva A., Santos E., Costa B.</div>
+          <div class="pub-venue">Workshop on Machine Learning (WML 2023)</div>
+        </div>
+        <a href="#" class="pub-link">PDF →</a>
+      </div>
+
+      <div class="pub-item reveal">
+        <div class="pub-year">2022</div>
+        <div>
+          <div class="pub-title">Título do quarto artigo</div>
+          <div class="pub-authors">Ferreira C., Oliveira D.</div>
+          <div class="pub-venue">International Conference on Systems (ICS 2022)</div>
+        </div>
+        <a href="#" class="pub-link">PDF →</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- VAGAS & CONTATO -->
+  <section id="vagas" style="padding:0;">
+    <div class="inner">
+      <div style="padding: 8rem 0;">
+        <div class="section-label reveal">Oportunidades</div>
+        <h2 class="reveal">Junte-se<br>ao EVAS Lab</h2>
+        <div class="vagas-grid">
+          <div>
+            <div class="vaga-item reveal">
+              <div class="vaga-title">Iniciação Científica</div>
+              <div class="vaga-desc">Para graduandas interessadas em pesquisa em IA, algoritmos e sistemas. Bolsas CNPq disponíveis.</div>
+            </div>
+            <div class="vaga-item reveal">
+              <div class="vaga-title">Mestrado</div>
+              <div class="vaga-desc">Programa de Pós-Graduação em Ciência da Computação na UFCG. Orientação em todas as linhas do lab.</div>
+            </div>
+            <div class="vaga-item reveal">
+              <div class="vaga-title">Doutorado</div>
+              <div class="vaga-desc">Pesquisa de ponta com possibilidade de colaborações internacionais e cotutela.</div>
+            </div>
+          </div>
+          <div class="contact-info reveal">
+            <h2 style="margin-bottom:1.5rem;">Contato</h2>
+            <p>Tem interesse em colaborar, fazer parte do lab ou conhecer melhor nossa pesquisa? Entre em contato.</p>
+            <a href="mailto:evaslab@ufcg.edu.br" class="contact-link">evaslab@ufcg.edu.br</a>
+            <a href="https://instagram.com" class="contact-link">Instagram</a>
+            <a href="https://lattes.cnpq.br" class="contact-link">Lattes</a>
+            <a href="https://github.com" class="contact-link">GitHub</a>
+            <p style="margin-top:2rem; font-size:0.8rem;">
+              Universidade Federal de Campina Grande<br>
+              Centro de Engenharia Elétrica e Informática<br>
+              Campina Grande, Paraíba — Brasil
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="logo">EVAS Lab</span>
+    <span class="copy">© 2025 EVAS Lab · UFCG</span>
+  </footer>
+
+  <script>
+    // Navbar scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 60);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
