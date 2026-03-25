@@ -595,10 +595,45 @@
       transform: none;
     }
 
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--accent);
+      font-size: 1.8rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+
     /* RESPONSIVE */
     @media (max-width: 768px) {
       nav {
         padding: 1.2rem 1.5rem;
+      }
+
+      nav {
+        flex-wrap: wrap;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .nav-links a {
+        display: block;
+        font-size: 0.9rem;
+      }
+
+      body.menu-open .nav-links {
+        display: flex;
       }
 
       section,
@@ -649,6 +684,11 @@
   <!-- NAV -->
   <nav id="navbar">
     <a href="#home" class="nav-logo">EVAS Lab</a>
+
+    <button class="menu-toggle" aria-label="Abrir menu" onclick="document.body.classList.toggle('menu-open')">
+      ☰
+    </button>
+
     <ul class="nav-links">
       <li><a href="#sobre">Sobre</a></li>
       <li><a href="#membros">Academy</a></li>
@@ -736,7 +776,8 @@
         </div>
         <div>
           <div class="academy-member-name">Gabrielly Trajano Amorin</div>
-          <div class="academy-member-role">Cientista da Computação | Fundadora e líder técnica em projetos de Pesquisa & Desenvolvimento do EVAS
+          <div class="academy-member-role">Cientista da Computação | Fundadora e líder técnica em projetos de Pesquisa &
+            Desenvolvimento do EVAS
             Lab.</div>
         </div>
       </div>
