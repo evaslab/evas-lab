@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EVAS Lab</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:wght@300;400;500&display=swap"
+    rel="stylesheet">
   <style>
     :root {
       --bg: #f0f2f7;
@@ -18,9 +21,15 @@
       --white: #ffffff;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       font-family: 'Barlow', sans-serif;
@@ -34,7 +43,9 @@
     /* NAV */
     nav {
       position: fixed;
-      top: 0; left: 0; right: 0;
+      top: 0;
+      left: 0;
+      right: 0;
       z-index: 100;
       display: flex;
       justify-content: space-between;
@@ -45,7 +56,10 @@
       border-bottom: 1px solid transparent;
       transition: border-color 0.3s;
     }
-    nav.scrolled { border-bottom-color: var(--border); }
+
+    nav.scrolled {
+      border-bottom-color: var(--border);
+    }
 
     .nav-logo {
       font-family: 'Barlow Condensed', sans-serif;
@@ -62,6 +76,7 @@
       gap: 2.5rem;
       list-style: none;
     }
+
     .nav-links a {
       font-size: 0.8rem;
       letter-spacing: 0.12em;
@@ -71,7 +86,10 @@
       font-weight: 400;
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--accent); }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
 
     /* SECTIONS COMMON */
     section {
@@ -91,6 +109,7 @@
       align-items: center;
       gap: 1rem;
     }
+
     .section-label::after {
       content: '';
       flex: 1;
@@ -162,6 +181,7 @@
       opacity: 0;
       animation: fadeUp 0.9s ease forwards 0.55s;
     }
+
     .btn {
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 0.78rem;
@@ -173,9 +193,21 @@
       text-decoration: none;
       transition: background 0.2s, color 0.2s;
     }
-    .btn:hover { background: var(--accent); color: var(--white); }
-    .btn.filled { background: var(--accent); color: var(--white); }
-    .btn.filled:hover { background: var(--accent2); border-color: var(--accent2); }
+
+    .btn:hover {
+      background: var(--accent);
+      color: var(--white);
+    }
+
+    .btn.filled {
+      background: var(--accent);
+      color: var(--white);
+    }
+
+    .btn.filled:hover {
+      background: var(--accent2);
+      border-color: var(--accent2);
+    }
 
     .hero-divider {
       position: absolute;
@@ -191,7 +223,10 @@
     }
 
     @keyframes fadeUp {
-      to { opacity: 1; transform: translateY(0); }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /* SOBRE */
@@ -202,20 +237,24 @@
       margin-top: 3rem;
       align-items: start;
     }
+
     .sobre-text p {
       color: var(--muted);
       margin-bottom: 1.2rem;
       font-size: 0.97rem;
     }
+
     .sobre-stats {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 2rem;
     }
+
     .stat {
       border-top: 1px solid var(--border);
       padding-top: 1.2rem;
     }
+
     .stat-number {
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 2.8rem;
@@ -223,6 +262,7 @@
       color: var(--accent);
       line-height: 1;
     }
+
     .stat-label {
       font-size: 0.75rem;
       letter-spacing: 0.08em;
@@ -231,26 +271,33 @@
     }
 
     /* MEMBROS */
-    #membros { background: none; }
+    #membros {
+      background: none;
+    }
+
     .academy-intro {
       margin-top: 1.5rem;
       max-width: 720px;
     }
+
     .academy-intro p,
     .academy-description p {
       font-size: 0.95rem;
       color: var(--muted);
       line-height: 1.8;
     }
+
     .academy-block {
       margin-top: 3rem;
       padding: 2.2rem;
       background: var(--white);
       border: 1px solid var(--border);
     }
+
     .academy-header {
       margin-bottom: 2rem;
     }
+
     .academy-kicker {
       display: inline-block;
       font-family: 'Barlow Condensed', sans-serif;
@@ -260,6 +307,7 @@
       color: var(--accent2);
       margin-bottom: 0.75rem;
     }
+
     .academy-header h3 {
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 1.6rem;
@@ -267,35 +315,40 @@
       letter-spacing: 0.04em;
       color: var(--text);
     }
+
     .academy-members-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
       gap: 1.25rem;
     }
+
     .academy-member-card {
       border-top: 1px solid var(--border);
       padding-top: 1rem;
       transition: transform 0.2s, opacity 0.2s;
     }
+
     .academy-member-card:hover {
       transform: translateY(-2px);
       opacity: 0.85;
     }
+
     .academy-member-avatar {
       width: 100%;
       aspect-ratio: 1 / 1;
       background: var(--bg2);
       border: 1px solid var(--border);
       margin-bottom: 0.9rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      color: var(--accent);
+      overflow: hidden;
     }
+
+    .academy-member-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
     .academy-member-name {
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 0.95rem;
@@ -304,13 +357,16 @@
       color: var(--text);
       line-height: 1.3;
     }
+
     .academy-description {
       margin-top: 2rem;
       max-width: 900px;
     }
+
     .academy-founder {
       margin-bottom: 1.5rem;
     }
+
     .academy-founder-card {
       display: grid;
       grid-template-columns: 120px 1fr;
@@ -320,6 +376,7 @@
       padding-top: 1rem;
       max-width: 520px;
     }
+
     .academy-member-role {
       margin-top: 0.35rem;
       font-size: 0.8rem;
@@ -335,6 +392,7 @@
       gap: 1.5rem;
       margin-top: 3rem;
     }
+
     .project-card {
       background: var(--white);
       border: 1px solid var(--border);
@@ -342,10 +400,12 @@
       transition: box-shadow 0.2s, transform 0.2s;
       cursor: default;
     }
+
     .project-card:hover {
       box-shadow: 0 8px 32px rgba(74, 96, 128, 0.1);
       transform: translateY(-2px);
     }
+
     .project-tag {
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 0.65rem;
@@ -354,6 +414,7 @@
       color: var(--accent2);
       margin-bottom: 1rem;
     }
+
     .project-title {
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 1.35rem;
@@ -362,6 +423,7 @@
       color: var(--text);
       margin-bottom: 0.8rem;
     }
+
     .project-desc {
       font-size: 0.85rem;
       color: var(--muted);
@@ -372,6 +434,7 @@
     .pubs-list {
       margin-top: 3rem;
     }
+
     .pub-item {
       border-top: 1px solid var(--border);
       padding: 2rem 0;
@@ -381,7 +444,11 @@
       align-items: start;
       transition: opacity 0.2s;
     }
-    .pub-item:hover { opacity: 0.7; }
+
+    .pub-item:hover {
+      opacity: 0.7;
+    }
+
     .pub-year {
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 0.8rem;
@@ -389,6 +456,7 @@
       color: var(--muted);
       padding-top: 0.2rem;
     }
+
     .pub-title {
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 1.05rem;
@@ -397,16 +465,19 @@
       color: var(--text);
       margin-bottom: 0.35rem;
     }
+
     .pub-authors {
       font-size: 0.8rem;
       color: var(--muted);
     }
+
     .pub-venue {
       font-size: 0.75rem;
       color: var(--accent2);
       margin-top: 0.3rem;
       font-style: italic;
     }
+
     .pub-link {
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 0.7rem;
@@ -419,7 +490,10 @@
       white-space: nowrap;
       transition: border-color 0.2s;
     }
-    .pub-link:hover { border-color: var(--accent); }
+
+    .pub-link:hover {
+      border-color: var(--accent);
+    }
 
     /* VAGAS */
     #vagas {
@@ -427,22 +501,26 @@
       max-width: 100%;
       padding: 8rem 0;
     }
+
     #vagas .inner {
       max-width: 1100px;
       margin: 0 auto;
       padding: 0 4rem;
     }
+
     .vagas-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 5rem;
       margin-top: 3rem;
     }
+
     .vaga-item {
       border-top: 1px solid var(--border);
       padding-top: 1.5rem;
       margin-bottom: 2rem;
     }
+
     .vaga-title {
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 1.1rem;
@@ -451,6 +529,7 @@
       color: var(--text);
       margin-bottom: 0.4rem;
     }
+
     .vaga-desc {
       font-size: 0.82rem;
       color: var(--muted);
@@ -461,6 +540,7 @@
       color: var(--muted);
       margin-bottom: 1.5rem;
     }
+
     .contact-link {
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 0.78rem;
@@ -472,7 +552,10 @@
       margin-bottom: 0.6rem;
       transition: opacity 0.2s;
     }
-    .contact-link:hover { opacity: 0.6; }
+
+    .contact-link:hover {
+      opacity: 0.6;
+    }
 
     /* FOOTER */
     footer {
@@ -484,6 +567,7 @@
       max-width: 1100px;
       margin: 0 auto;
     }
+
     footer .logo {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 700;
@@ -492,6 +576,7 @@
       color: var(--accent);
       text-transform: uppercase;
     }
+
     footer .copy {
       font-size: 0.75rem;
       color: var(--border);
@@ -504,6 +589,7 @@
       transform: translateY(20px);
       transition: opacity 0.7s ease, transform 0.7s ease;
     }
+
     .reveal.visible {
       opacity: 1;
       transform: none;
@@ -511,20 +597,53 @@
 
     /* RESPONSIVE */
     @media (max-width: 768px) {
-      nav { padding: 1.2rem 1.5rem; }
-      section, #home { padding: 5rem 1.5rem; }
+      nav {
+        padding: 1.2rem 1.5rem;
+      }
+
+      section,
+      #home {
+        padding: 5rem 1.5rem;
+      }
+
       #sobre .sobre-grid,
       .projects-grid,
-      .vagas-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .pub-item { grid-template-columns: 1fr; gap: 0.5rem; }
-      .academy-block { padding: 1.4rem; }
-      .academy-members-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .academy-founder-card { grid-template-columns: 1fr; }
-      footer { padding: 2rem 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
-      #vagas .inner { padding: 0 1.5rem; }
+      .vagas-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+
+      .pub-item {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+
+      .academy-block {
+        padding: 1.4rem;
+      }
+
+      .academy-members-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .academy-founder-card {
+        grid-template-columns: 1fr;
+      }
+
+      footer {
+        padding: 2rem 1.5rem;
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+
+      #vagas .inner {
+        padding: 0 1.5rem;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <!-- NAV -->
@@ -544,7 +663,8 @@
     <p class="hero-eyebrow">Laboratório de Sistemas, Algoritmos e Inteligência Artificial</p>
     <h1 class="hero-title">EVAS<br>Lab</h1>
     <p class="hero-sub">
-      Pesquisa de ponta em sistemas inteligentes, algoritmos e IA aplicada — construindo tecnologia que transforma a forma como o mundo resolve problemas.
+      Pesquisa de ponta em sistemas inteligentes, algoritmos e IA aplicada — construindo tecnologia que transforma a
+      forma como o mundo resolve problemas.
     </p>
     <div class="hero-cta">
       <a href="#projetos" class="btn filled">Ver projetos</a>
@@ -559,13 +679,16 @@
       <div class="sobre-text reveal">
         <h2>Pesquisa que<br>move o campo</h2>
         <p style="margin-top:1.5rem;">
-          O EVAS Lab é um laboratório de pesquisa dedicado ao avanço de sistemas inteligentes, algoritmos eficientes e inteligência artificial aplicada a problemas reais.
+          O EVAS Lab é um laboratório de pesquisa dedicado ao avanço de sistemas inteligentes, algoritmos eficientes e
+          inteligência artificial aplicada a problemas reais.
         </p>
         <p>
-          Acreditamos que o progresso científico é coletivo. Publicamos abertamente, colaboramos amplamente e formamos pesquisadores e desenvolvedores que impactam a sociedade.
+          Acreditamos que o progresso científico é coletivo. Publicamos abertamente, colaboramos amplamente e formamos
+          pesquisadores e desenvolvedores que impactam a sociedade.
         </p>
         <p>
-          Nossa pesquisa cobre desde fundamentos teóricos de algoritmos até aplicações práticas de aprendizado de máquina, com foco em soluções escaláveis e reprodutíveis.
+          Nossa pesquisa cobre desde fundamentos teóricos de algoritmos até aplicações práticas de aprendizado de
+          máquina, com foco em soluções escaláveis e reprodutíveis.
         </p>
       </div>
       <div class="sobre-stats reveal">
@@ -608,10 +731,13 @@
       </div>
 
       <div class="academy-founder-card">
-        <div class="academy-member-avatar">GA</div>
+        <div class="academy-member-avatar">
+          <img src="assets/images/evas/founder.jpg" alt="Gabrielly Trajano">
+        </div>
         <div>
           <div class="academy-member-name">Gabrielly Trajano Amorin</div>
-          <div class="academy-member-role">Fundadora e Líder Técnica em projetos de Pesquisa & Desenvolvimento do EVAS Lab.</div>
+          <div class="academy-member-role">Cientista da Computação | Fundadora e líder técnica em projetos de Pesquisa & Desenvolvimento do EVAS
+            Lab.</div>
         </div>
       </div>
     </div>
@@ -625,48 +751,44 @@
       <div class="academy-members-grid">
         <div class="academy-member-card">
           <div class="academy-member-avatar">
-          <div class="academy-member-avatar">AA</div>
+            <img src="assets/images/evas/jamilly.jpg" alt="Jamilly Cristine">
+          </div>
+          <div class="academy-member-name">Jamilly Vasconcelos</div>
+        </div>
+
+        <div class="academy-member-card">
+          <div class="academy-member-avatar">
+            <img src="assets/images/evas/rebecca.jpg" alt="Rebecca Fernandes">
+          </div>
+          <div class="academy-member-name">Rebecca Fernandes</div>
+        </div>
+
+        <div class="academy-member-card">
+          <div class="academy-member-avatar">
+            <img src="assets/images/evas/aline.jpg" alt="Aline Alves">
           </div>
           <div class="academy-member-name">Aline Alves</div>
         </div>
 
         <div class="academy-member-card">
-          <div class="academy-member-avatar">RF</div>
-          <div class="academy-member-name">Rebecca Fernandes</div>
-        </div>
-
-        <div class="academy-member-card">
-          <div class="academy-member-avatar">AA</div>
-          <div class="academy-member-name">Aline Alves</div>
-        </div>
-        <div class="academy-member-card">
-          <div class="academy-member-avatar">MO</div>
-          <div class="academy-member-name">Millena de Oliveira</div>
-        </div>
-
-        <div class="academy-member-card">
-          <div class="academy-member-avatar">JO</div>
-          <div class="academy-member-name">Joao Paulo Othon</div>
-        </div>
-
-        <div class="academy-member-card">
-          <div class="academy-member-avatar">MG</div>
-          <div class="academy-member-name">Maria Yolanda Guimarães</div>
-        </div>
-
-        <div class="academy-member-card">
-          <div class="academy-member-avatar">ML</div>
+          <div class="academy-member-avatar">
+            <img src="assets/images/evas/mia.jpg" alt="Mia Lima">
+          </div>
           <div class="academy-member-name">Mia Lima</div>
         </div>
 
         <div class="academy-member-card">
-          <div class="academy-member-avatar">SL</div>
-          <div class="academy-member-name">Shayane Lorena</div>
+          <div class="academy-member-avatar">
+            <img src="assets/images/evas/yolanda.jpg" alt="Yolanda Guimarães">
+          </div>
+          <div class="academy-member-name">Maria Yolanda Guimarães</div>
         </div>
 
         <div class="academy-member-card">
-          <div class="academy-member-avatar">BM</div>
-          <div class="academy-member-name">Bianca Meira</div>
+          <div class="academy-member-avatar">
+            <img src="assets/images/evas/shay.jpg" alt="Mia Lima">
+          </div>
+          <div class="academy-member-name">Shayane Lorena</div>
         </div>
       </div>
     </div>
@@ -688,69 +810,73 @@
       <div class="project-card reveal">
         <div class="project-tag">Sistema · Web · IA</div>
         <div class="project-title">Condo Platform</div>
-        <div class="project-desc">Plataforma inteligente para gestão condominial com arquitetura moderna e camadas bem definidas — Angular, NestJS e MySQL. Em desenvolvimento.</div>
+        <div class="project-desc">Plataforma inteligente para gestão condominial com arquitetura moderna e camadas bem
+          definidas — Angular, NestJS e MySQL. Em desenvolvimento.</div>
       </div>
 
       <div class="project-card reveal">
         <div class="project-tag">Educação · Gamificação</div>
         <div class="project-title">Sistema de Quiz & Ranking</div>
-        <div class="project-desc">Plataforma de pontuação por quizzes de aula com login, ranking individual e por times. Em desenvolvimento.</div>
+        <div class="project-desc">Plataforma de pontuação por quizzes de aula com login, ranking individual e por times.
+          Em desenvolvimento.</div>
       </div>
 
       <div class="project-card reveal">
         <div class="project-tag">Algoritmos · Otimização</div>
         <div class="project-title">Projeto Algoritmos</div>
-        <div class="project-desc">Pesquisa em algoritmos de otimização combinatória aplicados a problemas de escalonamento e alocação de recursos. Em desenvolvimento.</div>
+        <div class="project-desc">Pesquisa em algoritmos de otimização combinatória aplicados a problemas de
+          escalonamento e alocação de recursos. Em desenvolvimento.</div>
       </div>
 
       <div class="project-card reveal">
         <div class="project-tag">Aprendizado de Máquina</div>
         <div class="project-title">Projeto IA Aplicada</div>
-        <div class="project-desc">Modelos de aprendizado supervisionado e não supervisionado aplicados a conjuntos de dados reais. Em desenvolvimento.</div>
+        <div class="project-desc">Modelos de aprendizado supervisionado e não supervisionado aplicados a conjuntos de
+          dados reais. Em desenvolvimento.</div>
       </div>
 
     </div>
   </section>
 
-<!-- SISTEMAS -->
-<section id="sistemas">
-  <div class="section-label reveal">Sistemas</div>
-  <h2 class="reveal">O que construímos</h2>
+  <!-- SISTEMAS -->
+  <section id="sistemas">
+    <div class="section-label reveal">Sistemas</div>
+    <h2 class="reveal">O que construímos</h2>
 
-  <div class="services-intro reveal">
-    <p>
-      O EVAS Lab projeta e desenvolve sistemas digitais com foco em estrutura,
-      evolução contínua e impacto de longo prazo.
-    </p>
-  </div>
-
-  <div class="services-grid">
-
-    <div class="service-card reveal">
-      <h3>Plataformas</h3>
+    <div class="services-intro reveal">
       <p>
-        Construímos plataformas digitais que conectam usuários, dados e processos,
-        permitindo crescimento e adaptação ao longo do tempo.
+        O EVAS Lab projeta e desenvolve sistemas digitais com foco em estrutura,
+        evolução contínua e impacto de longo prazo.
       </p>
     </div>
 
-    <div class="service-card reveal">
-      <h3>Arquitetura</h3>
-      <p>
-        Definimos a estrutura de sistemas complexos, organizando domínio,
-        módulos e fluxos para garantir consistência e escalabilidade.
-      </p>
-    </div>
+    <div class="services-grid">
 
-    <div class="service-card reveal">
-      <h3>Pesquisa</h3>
-      <p>
-        Investigamos como inteligência artificial e sistemas computacionais podem
-        ampliar a forma como produtos são construídos e utilizados.
-      </p>
-    </div>
+      <div class="service-card reveal">
+        <h3>Plataformas</h3>
+        <p>
+          Construímos plataformas digitais que conectam usuários, dados e processos,
+          permitindo crescimento e adaptação ao longo do tempo.
+        </p>
+      </div>
 
-  </div>
+      <div class="service-card reveal">
+        <h3>Arquitetura</h3>
+        <p>
+          Definimos a estrutura de sistemas complexos, organizando domínio,
+          módulos e fluxos para garantir consistência e escalabilidade.
+        </p>
+      </div>
+
+      <div class="service-card reveal">
+        <h3>Pesquisa</h3>
+        <p>
+          Investigamos como inteligência artificial e sistemas computacionais podem
+          ampliar a forma como produtos são construídos e utilizados.
+        </p>
+      </div>
+
+    </div>
   </section>
 
   <!-- VAGAS & CONTATO -->
@@ -809,4 +935,5 @@
   </script>
 
 </body>
+
 </html>
